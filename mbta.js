@@ -384,14 +384,41 @@
               marker_for_me = new google.maps.Marker({
               position: me,
               map: map,
-              title: ""
               });
 
               marker_for_me.setMap(map);
 
+
+
+              var infoWindow = new google.maps.InfoWindow();
+
               google.maps.event.addListener(marker_for_me, 'click', function() {
-              infowindow_for_me.setContent(marker_for_me.title);
-              infowindow_for_me.open(map, marker_for_me);
+
+              var request = new XMLHttpRequest();
+              var theActualMarker = this;
+              request.open("GET", "https://api.sunrise-sunset.org/json?lat=19.075371&lng=72.856707", true);  
+
+
+                        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+            var result = request.responseText;
+            sunrisesunset_data = JSON.parse(result);
+    
+            sunrise = sunrisesunset_data.results.sunrise;
+            sunset = sunrisesunset_data.results.sunset;
+            console.log(sunrise);
+            console.log(sunset);
+              this.title = "Sunrise time: " + sunrise + ".\n" + "Sunset time: " + sunset + ".\n";
+               
+
+            }
+
+            infoWindow.setContent(this.title);
+            infoWindow.open(map, theActualMarker); 
+            }
+          
+          request.send();
+
               });
 
               
