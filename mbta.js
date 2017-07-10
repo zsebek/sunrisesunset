@@ -24,7 +24,7 @@
 
             
 
-            // MBTA Red Line Stations
+            // Map markers
            
               var boston = new google.maps.LatLng(42.358050, -71.086173);
               var groton = new google.maps.LatLng(42.609593, -71.574206);
@@ -33,6 +33,11 @@
               var singapore = new google.maps.LatLng(1.328741, 103.840007);
               var mumbai = new google.maps.LatLng(19.075371, 72.856707);
               var san_diego = new google.maps.LatLng(32.834339, -117.272091);
+
+
+
+            // Perhaps you should consider making separate variables for the lat/lng of all of these
+            // So you can just insert the variables into the xml requests instead of the coordinates themselves  
 
 			function init()
 			{
@@ -396,7 +401,7 @@
 
               var request = new XMLHttpRequest();
               var theActualMarker = this;
-              request.open("GET", "https://api.sunrise-sunset.org/json?lat=19.075371&lng=72.856707", true);  
+              request.open("GET", "https://api.sunrise-sunset.org/json?lat="+ myLat + "&lng=" + myLng, true);  
 
 
                         request.onreadystatechange = function() {
